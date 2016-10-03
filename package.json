@@ -1,0 +1,40 @@
+{
+  "name": "tap-fail-exit",
+  "version": "1.0.0",
+  "description": "Stream that receives TAP and exits on first failing test.",
+  "keywords": [
+    "tap",
+    "test",
+    "fail",
+    "not",
+    "ok",
+    "exit",
+    "stop",
+    "stream",
+    "pipe"
+  ],
+  "main": "index.js",
+  "bin": {
+    "tap-fail-exit": "bin/cmd.js"
+  },
+  "scripts": {
+    "test": "node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/m59peacemaker/node-tap-fail-exit"
+  },
+  "author": {
+    "name": "Johnny Hauser",
+    "email": "johnnyhauser@gmail.com"
+  },
+  "license": "VOL",
+  "devDependencies": {
+    "tape": "^4.6.0"
+  },
+  "dependencies": {
+    "@m59/tap-parser": "^1.0.0",
+    "throo": "^1.0.0",
+    "through2": "^2.0.1"
+  }
+}
