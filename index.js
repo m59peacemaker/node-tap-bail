@@ -1,10 +1,10 @@
-const parser = require('@m59/tap-parser')
+const parser = require('tap_parser')
 const duplex = require('duplexer')
 const {obj: through} = require('throo')
 
-const exitOnFail = () => {
+const tapBail = () => {
   const parserStream = parser()
-  const exitStream = parserStream.pipe(through((push, chunk, enc, cb) => {
+  const bailStream = parserStream.pipe(through((push, chunk, enc, cb) => {
     const value = chunk.value + '\n'
     push(value)
     if (chunk.type === 'test' && !chunk.parsed.ok) {
@@ -13,7 +13,7 @@ const exitOnFail = () => {
       cb()
     }
   }))
-  return duplex(parserStream, exitStream)
+  return duplex(parserStream, bailStream)
 }
 
-module.exports = exitOnFail
+module.exports = tapBail

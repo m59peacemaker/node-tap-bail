@@ -1,12 +1,12 @@
 const test = require('tape')
 const {spawn} = require('child_process')
 const {join: joinPath} = require('path')
-const exitOnFail = require('../')
-const spawnEOF = () => spawn(joinPath(__dirname, '../bin/cmd.js'))
+const tapBail = require('../')
+const spawnTB = () => spawn(joinPath(__dirname, '../bin/cmd.js'))
 
 test('cmd exits with exitCode 1 on failing test', t => {
   t.plan(1)
-  const p = spawnEOF()
+  const p = spawnTB()
   p.on('close', exitCode => {
     t.equal(exitCode, 1)
   })
@@ -23,7 +23,7 @@ test('cmd TAP passes through until failing test', t => {
     'not ok 2 abc\n',
     'ok 3 do not want\n'
   ]
-  const p = spawnEOF()
+  const p = spawnTB()
   let allData = ''
   p.stdout.on('data', data => { allData += data })
   datas.forEach(data => p.stdin.write(data))
@@ -43,10 +43,9 @@ test('cmd TAP passes through until failing test', t => {
 
 test(`cmd doesn't output failing test error message from stream`, t => {
   t.plan(1)
-  const p = spawnEOF()
+  const p = spawnTB()
   let allErr = ''
   p.stderr.on('data', data => allErr += data)
-  p.stdout.pipe(process.stdout)
   p.on('close', () => t.equal(allErr, '', 'stream error was caught'))
   p.stdin.write('not ok\n')
   p.stdin.write('# whatever\n')
@@ -54,10 +53,9 @@ test(`cmd doesn't output failing test error message from stream`, t => {
 
 test('programmatic stream', t => {
   t.plan(1)
-  const stream = exitOnFail()
+  const stream = tapBail()
     .on('error', err => t.pass('stream threw err: ' + err))
     .on('end', () => t.fail('stream exited normally'))
-    stream.pipe(process.stdout)
   stream.write('not ok\n')
   stream.end()
 })

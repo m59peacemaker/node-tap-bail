@@ -1,22 +1,24 @@
-# tap-fail-exit
+# tap_bail
 
 Stream that receives TAP and exits on first failing test.
 
 ## install
 
-npm install tap-fail-exit
+```sh
+npm install tap_bail
+```
 
 ## example
 
 ```sh
 # run tests, format TAP with tap-spec, exit on first failing test
-npm test | tap-fail-exit | tap-spec
+npm test | tap_bail | tap-spec
 ```
 
 ```js
-const exitOnFail = require('tap-fail-exit')
+const tapBail = require('tap_bail')
 
-const stream = exitOnFail()
+const stream = tapBail()
   .on('error', () => {}) // failing test
   .on('end', () => {}) // all tests passed
 ```
