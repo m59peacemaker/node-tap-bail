@@ -1,6 +1,6 @@
 {
   "name": "tap_bail",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Stream that receives TAP and exits on first failing test.",
   "keywords": [
     "tap",
@@ -29,7 +29,7 @@
     "name": "Johnny Hauser",
     "email": "johnnyhauser@gmail.com"
   },
-  "license": "VOL",
+  "license": "CC0-1.0",
   "dependencies": {
     "duplexer": "^0.1.1",
     "tap_parser": "^1.0.2",
